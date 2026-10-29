@@ -7,6 +7,11 @@ Rebuild public data after the base changes (new price list, photos, translations
   1. Artifact read of the Довідник paths above into a folder <src>/data/
   2. python3 -I build_catalog.py <src> <site dir>
      -> <site>/data/catalog.json (no factory prices on purpose) + <site>/data/img/iNN.json (WebP base64, 80 photos per chunk)
+  2b. Drawings, bulbs, connection, voltage from the MARS catalog PDF (Mars 2025-2026 Katalog):
+     python3 -I mars_specs.py <catalog.pdf> <specs_dir>   (~4 min; specs.json + dw/*.png)
+     python3 -I build_catalog.py <src> <site dir> <specs_dir>   -> also data/dw/dNN.json (WebP drawings, 40 per chunk)
+     Item fields added: lbt bulbs text, lb bulb types, v voltage, cnx connection text, dw [[chunk,id]..] drawings,
+     pin [chunk,id] connector pinout, cv [chunk,id] connector photo.
   3. Republish this artifact with index.html + data/catalog.json + data/img/*.json (+ tools/*).
 
 Data fields in catalog.json items: c code, b brand (MARS|AYFAR), n Ukrainian name, alt other price-list names,
